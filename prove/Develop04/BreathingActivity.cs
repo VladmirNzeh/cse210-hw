@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 
 class BreathingActivity : MindfulnessActivity
-{
+{ 
     public BreathingActivity() : base("Breathing", "relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
     {
     }
