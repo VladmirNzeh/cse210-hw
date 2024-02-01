@@ -13,7 +13,7 @@ class Program
         Console.WriteLine(a2.GetSummary());
         Console.WriteLine(a2.GetHomeworkList());
 
-        WritingAssignment a3 = new WritingAssignment("Kenneth Randy", "Statistics", "World Inflation rise");
+        WritingAssignment a3 = new WritingAssignment("Kenneth Randy", "Statistics", "World Inflation rise ");
         Console.WriteLine(a3.GetSummary());
         Console.WriteLine(a3.GetWritingInformation());
     }
