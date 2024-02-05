@@ -2,54 +2,52 @@ using System;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        BreathingActivity breathingActivity = new BreathingActivity();
-        ReflectionActivity reflectionActivity = new ReflectionActivity();
-        ListingActivity listingActivity = new ListingActivity();
-
-        Console.WriteLine("Mindfulness Activities:");
-        Console.WriteLine("1. Breathing Activity");
-        Console.WriteLine("2. Reflection Activity");
-        Console.WriteLine("3. Listing Activity");
-
-        Console.Write("Choose an activity (1-3): ");
-        if (int.TryParse(Console.ReadLine(), out int choice))
+        while (true)
         {
+            Console.WriteLine("Mindfulness Program Menu");
+            Console.WriteLine("1. Breathing Activity");
+            Console.WriteLine("2. Listing Activity");
+            Console.WriteLine("3. Reflecting Activity");
+            Console.WriteLine("4. Meditation Activity"); // Added option for Meditation
+            Console.WriteLine("5. Exit");
+
+            Console.Write("Select an activity (1-5): ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            Activity activity;
+
             switch (choice)
             {
                 case 1:
-                    RunActivity(breathingActivity);
+                    activity = new BreathingActivity();
+                    activity.Run();
                     break;
+
                 case 2:
-                    RunActivity(reflectionActivity);
+                    activity = new ListingActivity();
+                    activity.Run();
                     break;
+
                 case 3:
-                    RunActivity(listingActivity);
+                    activity = new ReflectingActivity();
+                    activity.Run();
                     break;
+
+                case 4:
+                    activity = new MeditationActivity(); // Create instance of MeditationActivity
+                    activity.Run();
+                    break;
+
+                case 5:
+                    Environment.Exit(0);
+                    break;
+
                 default:
-                    Console.WriteLine("Invalid choice. Please choose between 1 and 3.");
+                    Console.WriteLine("Invalid choice. Please select again.");
                     break;
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid input. Please enter a number.");
-        }
-
-        MindfulnessActivity.PrintActivityLogs();
-    }
-
-    static void RunActivity(MindfulnessActivity activity)
-    {
-        Console.Write("Enter the duration of the activity in seconds: ");
-        if (int.TryParse(Console.ReadLine(), out int duration))
-        {
-            activity.StartActivity(duration);
-        }
-        else
-        {
-            Console.WriteLine("Invalid input. Please enter a valid number for duration.");
         }
     }
 }

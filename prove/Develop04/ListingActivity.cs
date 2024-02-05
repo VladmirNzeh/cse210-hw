@@ -1,49 +1,48 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
-class ListingActivity : MindfulnessActivity
+class ListingActivity : Activity
 {
-    private readonly List<string> _listingPrompts = new List<string>
+    private List<string> _prompts = new List<string>
     {
         "Who are people that you appreciate?",
         "What are personal strengths of yours?",
         "Who are people that you have helped this week?",
         "When have you felt the Holy Ghost this month?",
-        "Who are some of your personal heroes?"
+        "Who are some of your villians?"
     };
 
-    public ListingActivity() : base("Listing", "reflect on the good things in your life by listing as many things as you can in a certain area.")
+    public ListingActivity() : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
     {
     }
 
-    protected override void PerformActivity(int duration)
+    public override void Run()
     {
-        for (int i = 0; i < duration; i++)
-        {
-            Console.WriteLine($"\n{_listingPrompts[i % _listingPrompts.Count]}");
-            AnimateSpinner(2); // Pause for 2 seconds
-            ListItems();
-        }
+        DisplayStartingMessage();
+        Console.WriteLine($"Think about: {_prompts[0]}");
+
+        ShowSpinner(3); // Pause for 3 seconds before listing
+
+        Console.WriteLine("Begin listing items...");
+
+        List<string> userItems = GetListFromUser();
+        Console.WriteLine($"You listed {userItems.Count} items.");
+
+        DisplayEndingMessage();
     }
 
-    private void ListItems()
+    public List<string> GetListFromUser()
     {
-        const int countdownSeconds = 5;
-
-        Console.WriteLine($"\nGet ready! You have {countdownSeconds} seconds to think about the prompt.");
-        Countdown(countdownSeconds);
-
         List<string> items = new List<string>();
-        DateTime startTime = DateTime.Now;
+        DateTime endTime = DateTime.Now.AddSeconds(_duration);
 
-        while ((DateTime.Now - startTime).TotalSeconds < countdownSeconds)
+        while (DateTime.Now < endTime)
         {
-            Console.Write("\nEnter an item: ");
+            Console.Write("Enter an item: ");
             string item = Console.ReadLine();
             items.Add(item);
         }
 
-        Console.WriteLine($"\nNumber of items entered: {items.Count}");
+        return items;
     }
 }

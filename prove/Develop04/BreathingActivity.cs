@@ -1,22 +1,27 @@
 using System;
 using System.Threading;
 
-class BreathingActivity : MindfulnessActivity
-{ 
-    public BreathingActivity() : base("Breathing", "relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
+class BreathingActivity : Activity
+{
+    public BreathingActivity() : base("Breathing Activity", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
     {
     }
 
-    protected override void PerformActivity(int duration)
+    public override void Run()
     {
-        for (int i = 0; i < duration; i++)
+        DisplayStartingMessage();
+        Console.WriteLine("Let's begin the breathing exercise!");
+
+        for (int i = 0; i < _duration; i++)
         {
-            Console.WriteLine("\nBreathe in...");
+            if (i % 2 == 0)
+                Console.WriteLine("Breathe in...");
+            else
+                Console.WriteLine("Breathe out...");
+
             Thread.Sleep(1000);
-            AnimateSpinner(2); // Pause for 2 seconds
-            Console.WriteLine("Breathe out...");
-            Thread.Sleep(1000);
-            AnimateSpinner(2); // Pause for 2 seconds
         }
+
+        DisplayEndingMessage();
     }
 }
