@@ -3,34 +3,34 @@ using System.Collections.Generic;
 
 public class Store
 {
-    private List<Item> items;
+    private List<Item> inventory;
 
     public Store()
     {
-        this.items = new List<Item>();
+        this.inventory = new List<Item>();
     }
 
     public void AddItem(Item item)
     {
-        items.Add(item);
+        inventory.Add(item);
     }
 
     public void RemoveItem(Item item)
     {
-        items.Remove(item);
+        inventory.Remove(item);
     }
 
     public Item SearchItem(string name)
     {
-        return items.Find(item => item.Name == name);
+        return inventory.Find(item => item.Name == name);
     }
 
     public void DisplayAvailableItems()
     {
         Console.WriteLine("Available Items:");
-        foreach (var item in items)
+        foreach (var item in inventory)
         {
-            Console.WriteLine($"Name: {item.Name}, Price: {item.Price}, Quantity: {item.Quantity}");
+            Console.WriteLine($"Name: {item.Name}, Price: {item.Price:C}, Quantity: {item.Quantity}");
         }
     }
 }

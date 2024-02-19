@@ -1,38 +1,26 @@
-using System;
 using System.IO;
+using System.Text.Json;
 
 public class FileHandler
 {
-    public void SaveData(string data)
+    private string filePath;
+
+    public FileHandler(string filePath)
     {
-        try
-        {
-            File.WriteAllText("data.txt", data);
-            Console.WriteLine("Data saved successfully.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error occurred while saving data: {ex.Message}");
-        }
+        this.filePath = filePath;
     }
 
-    public string LoadData()
+    public T LoadData<T>()
     {
-        try
-        {
-            string data = File.ReadAllText("data.txt");
-            Console.WriteLine("Data loaded successfully.");
-            return data;
-        }
-        catch (FileNotFoundException)
-        {
-            Console.WriteLine("Data file not found.");
-            return null;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error occurred while loading data: {ex.Message}");
-            return null;
-        }
+        // Read JSON data from the file and deserialize it into the specified type
+        string jsonData = File.ReadAllText(filePath);
+        return JsonSerializer.Deserialize<T>(jsonData);
+    }
+
+    public void SaveData<T>(T data)
+    {
+        // Serialize the data object into JSON format and write it to the file
+        string jsonData = JsonSerializer.Serialize(data);
+        File.WriteAllText(filePath, jsonData);
     }
 }
