@@ -15,8 +15,6 @@ namespace eternal_quest
 }
 
 
-////////////////////////
-
 
 
 
